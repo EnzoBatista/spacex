@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+// import ReactDOM from 'react-dom';
+import styled from 'styled-components';
+import Header from './components/layout/Header';
+import Main from './components/layout/Main';
+import { Card, CardContent } from '@mui/material';
+// import Rockets from './components/Rockets/Rockets';
+// import RocketsProvider from './store/RocketsProvider';
+
+const StyledCard = styled(Card)`
+  position: relative;
+  top: -40px;
+  max-width: fit-content;
+  margin: 0 auto;
+`;
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <Main>
+        <StyledCard>
+          <CardContent sx={{backgroundColor: '#141313'}}>
+              {/* <Rockets /> */}
+          </CardContent>
+        </StyledCard>
+      </Main>
     </div>
   );
 }
