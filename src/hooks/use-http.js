@@ -6,11 +6,9 @@ const UseHttp = (requestConfig, applyData) => {
 
   const sendRequest = useCallback(async () => {
     setLoading(true);
-
+    
     try {
-      const response = await fetch(
-        requestConfig.url + '?' + new URLSearchParams(requestConfig.params),
-        {
+      const response = await fetch(requestConfig.url + '?' + new URLSearchParams(requestConfig.params),{
           method: requestConfig.method ? requestConfig.method : 'GET',
           headers: requestConfig.headers ? requestConfig.headers : {},
           body: requestConfig.body ? requestConfig.body : null,
@@ -27,7 +25,7 @@ const UseHttp = (requestConfig, applyData) => {
         setError(error.message);
     }
     setLoading(false);
-  }, [requestConfig, applyData]);
+  }, [requestConfig, applyData ]);
 
   return {
       sendRequest,

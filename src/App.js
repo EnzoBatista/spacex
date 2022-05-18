@@ -1,11 +1,11 @@
 import React from 'react';
-// import ReactDOM from 'react-dom';
-import styled from 'styled-components';
+
+import { styled } from '@mui/system';
 import Header from './components/layout/Header';
 import Main from './components/layout/Main';
 import { Card, CardContent } from '@mui/material';
-// import Rockets from './components/Rockets/Rockets';
-// import RocketsProvider from './store/RocketsProvider';
+import Rockets from './components/rockets/Rockets';
+
 
 const StyledCard = styled(Card)`
   position: relative;
@@ -21,7 +21,7 @@ function App() {
       <Main>
         <StyledCard>
           <CardContent sx={{backgroundColor: '#141313'}}>
-              {/* <Rockets /> */}
+              <Rockets />
           </CardContent>
         </StyledCard>
       </Main>
