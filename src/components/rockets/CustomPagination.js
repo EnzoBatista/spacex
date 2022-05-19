@@ -41,11 +41,14 @@ const StyledPagination = styled(Pagination)`
 `;
 
 const CustomPagination = (props) => {
+  console.log('PAGINATION RENDER');
+  
   const { currentPage, totalPages } = props.data;
 
   const pageChangeHandler = (event, page) => {
     props.onPageChange(page);
   };
+
 
   return (
     <StyledPagination
@@ -61,4 +64,6 @@ const CustomPagination = (props) => {
   );
 };
 
-export default CustomPagination;
+export default React.memo(CustomPagination, (prevProps, nextProps) => {
+  return prevProps.data !== nextProps.data;
+});

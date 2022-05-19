@@ -23,7 +23,7 @@ const rocketsSlice = createSlice({
   initialState: initialState.rockets,
   reducers: {
       fetch(state, action) {
-        console.log('FETCH_DATA: ', action);
+        // console.log('FETCH_DATA: ', action);
           return {
                 collection: action.payload.collection,
                 total: action.payload.total,

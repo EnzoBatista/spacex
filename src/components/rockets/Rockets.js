@@ -5,9 +5,9 @@ import useHttp from '../../hooks/use-http';
 import RocketsList from './RocketsList';
 import CustomPagination from './CustomPagination';
 
-
 const Rockets = () => {
-  console.log('ROCKET COMPONENT!!')
+  console.log('ROCKET COMPONENT!!');
+
   const currentPage = useSelector(
     (state) => state.rockets.pagination.currentPage
   );
@@ -17,26 +17,27 @@ const Rockets = () => {
   const rockets = useSelector((state) => state.rockets);
 
   const dispatch = useDispatch();
-
+  
   const fetchHandler = (page) => {
-    dispatch(
-      rocketsActions.fetch({
-        collection: rockets.collection,
-        total: rockets.total,
-        offset:
-          rockets.pagination.limit * rockets.pagination.currentPage -
-          rockets.pagination.limit,
-        pagination: {
-          currentPage: page,
-          limit: rockets.pagination.limit,
-          totalPages: rockets.pagination.totalPages,
-        },
-      })
-    );
+    const prevState = JSON.parse(JSON.stringify(rockets));
+    const newOffset =
+      prevState.pagination.limit * page - prevState.pagination.limit;
+
+    const newState = {
+      ...prevState,
+      offset: newOffset,
+      pagination: {
+        ...prevState.pagination,
+        currentPage: page,
+      },
+    };
+    // console.log({ prevState, newState });
+    dispatch(rocketsActions.fetch(newState));
   };
 
   const applyData = useCallback(
     (data) => {
+      console.log('applyData');
       let collection = [];
       const total = data.result.totalCount;
       const fetchedCollection = data.data;
@@ -53,6 +54,7 @@ const Rockets = () => {
         });
       }
 
+      fetchHandler(rockets.pagination.currentPage);
       dispatch(
         rocketsActions.fetch({
           collection: collection,
@@ -95,7 +97,6 @@ const Rockets = () => {
   useEffect(() => {
     fetchRocketsHandler();
   }, [fetchRocketsHandler]);
-
   return (
     <>
       {/* <Filters
