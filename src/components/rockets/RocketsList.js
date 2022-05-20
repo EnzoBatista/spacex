@@ -1,17 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-// import { rocketsActions } from '../../store';
 
 import Grid from '@mui/material/Grid';
 import RocketItem from './RocketItem';
 
 
 const RocketsList = (props) => {
+  console.log('ROCKET LIST!!');
+
   let content = '';
-  const collection = useSelector(state => state.rockets.collection);
-  // const collection = useSelector(state => state.rockets.collection);
-  // console.log('LOADING...', props.loading);
-  // console.log('COLLECTION: ', props.collection);
+  let collection = props.collection;
 
 
   props.loading ? (content = Array.from({ length: props.limit }, (v, k) => k++).map(

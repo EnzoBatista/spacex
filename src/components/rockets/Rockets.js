@@ -17,8 +17,8 @@ const Rockets = () => {
   const rockets = useSelector((state) => state.rockets);
 
   const dispatch = useDispatch();
-  
-  const fetchHandler = (page) => {
+
+  const updateStoreHandler = (page) => {
     const prevState = JSON.parse(JSON.stringify(rockets));
     const newOffset =
       prevState.pagination.limit * page - prevState.pagination.limit;
@@ -35,6 +35,7 @@ const Rockets = () => {
     dispatch(rocketsActions.fetch(newState));
   };
 
+  // APPLY DATA FORMAT FOR FRONTEND
   const applyData = useCallback(
     (data) => {
       console.log('applyData');
@@ -54,7 +55,8 @@ const Rockets = () => {
         });
       }
 
-      fetchHandler(rockets.pagination.currentPage);
+      updateStoreHandler(rockets.pagination.currentPage);
+
       dispatch(
         rocketsActions.fetch({
           collection: collection,
@@ -78,6 +80,7 @@ const Rockets = () => {
     ]
   );
 
+  // HTTP REQUEST FETCH() CONFIG OBJECT
   const requestConfig = useMemo(() => {
     return {
       url: 'https://api.spacex.land/rest/launches-past-result',
@@ -88,15 +91,18 @@ const Rockets = () => {
     };
   }, [rockets.offset, rockets.pagination.limit]);
 
+  //HTTP REQUEST CUSTOM HOOK
   const {
     loading,
     error,
     sendRequest: fetchRocketsHandler,
   } = useHttp(requestConfig, applyData);
 
+  // FETCH DATA ON FIRTS LOADING
   useEffect(() => {
     fetchRocketsHandler();
   }, [fetchRocketsHandler]);
+
   return (
     <>
       {/* <Filters
@@ -110,10 +116,11 @@ const Rockets = () => {
         limit={rockets.pagination.limit}
         collection={rockets.collection}
       />
-      {!loading && (
+      {totalPages > 0 && (
         <CustomPagination
-          onPageChange={fetchHandler}
-          data={{ currentPage, totalPages }}
+          onPageChange={updateStoreHandler}
+          currentPage={currentPage}
+          totalPages={totalPages}
         />
       )}
     </>

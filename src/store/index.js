@@ -13,7 +13,7 @@ const initialState = {
         pagination: {
             limit: 5,
             currentPage: 1, 
-            totalPages: window.rest
+            totalPages: 0
         }
     }
 }
@@ -23,14 +23,15 @@ const rocketsSlice = createSlice({
   initialState: initialState.rockets,
   reducers: {
       fetch(state, action) {
-        // console.log('FETCH_DATA: ', action);
+        console.log('FETCH_DATA: ', action);
+        const newOffset= +state.pagination.limit * +state.pagination.currentPage - +state.pagination.limit;
           return {
                 collection: action.payload.collection,
                 total: action.payload.total,
-                offset: (+state.pagination.limit * +state.pagination.currentPage) - +state.pagination.limit,
+                offset: newOffset,
                 pagination: {
                     currentPage: action.payload.pagination.currentPage,
-                    limit: +state.pagination.limit,
+                    limit: state.pagination.limit,
                     totalPages: totalPag(action.payload.total, action.payload.pagination.limit)
                 }
           }
