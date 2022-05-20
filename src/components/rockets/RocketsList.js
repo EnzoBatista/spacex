@@ -1,11 +1,11 @@
 import React from 'react';
-
 import Grid from '@mui/material/Grid';
 import RocketItem from './RocketItem';
 
 
 const RocketsList = (props) => {
-  console.log('ROCKET LIST!!');
+  // console.log('ROCKET LIST!!: ', props.collection);
+  // const collection = useSelector(state => state.rockets.collection);
 
   let content = '';
   let collection = props.collection;

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Pagination } from '@mui/material';
 import { styled } from '@mui/system';
+import { useDispatch } from 'react-redux';
+import { rocketsActions } from '../../store';
 
 const StyledPagination = styled(Pagination)`
   display: flex;
@@ -41,10 +43,11 @@ const StyledPagination = styled(Pagination)`
 `;
 
 const CustomPagination = (props) => {
-  console.log('PAGINATION RENDER', props.data);
+  // console.log('PAGINATION RENDER', props.data);
+  const dispatch = useDispatch();
 
   const pageChangeHandler = (event, page) => {
-    props.onPageChange(page);
+    dispatch(rocketsActions.changePage(page));
   };
 
   return (
